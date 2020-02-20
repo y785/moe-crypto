@@ -22,16 +22,13 @@
 
 package moe.maple.crypto;
 
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.function.Consumer;
 
 /**
  * Credits: retep998
@@ -39,8 +36,6 @@ import java.security.SecureRandom;
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class AESCipher {
-
-    private static final Logger log = LogManager.getLogger( AESCipher.class );
 
     public static final int DEFAULT_BLOCK_SIZE = 1460;
 
@@ -87,6 +82,10 @@ public class AESCipher {
     }
 
     public void crypt(byte[] in, byte[] out) {
+        crypt(in, out, Throwable::printStackTrace);
+    }
+
+    public void crypt(byte[] in, byte[] out, Consumer<Throwable> exceptionConsumer) {
         try {
             init();
 
@@ -106,10 +105,12 @@ public class AESCipher {
                 if (first == 1)
                     first = 0;
             }
-        } catch (ShortBufferException | IllegalBlockSizeException | BadPaddingException e) {
-            log.error("An exception was thrown with the cipher.", e);
-        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
-            log.error("An exception was thrown while initializing cipher.", e);
+        } catch (ShortBufferException
+                | IllegalBlockSizeException
+                | BadPaddingException
+                | InvalidKeyException
+                | InvalidAlgorithmParameterException e) {
+            exceptionConsumer.accept(e);
         }
     }
 

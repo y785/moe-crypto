@@ -68,7 +68,7 @@ public class MoeIV extends IvParameterSpec {
         if (seed.length < 4)
             throw new IllegalArgumentException("IV length is invalid: " + seed.length);
 
-        var iv = new byte[]{
+        var iv = new byte[] {
                 seed[0], seed[1], seed[2], seed[3],
                 seed[0], seed[1], seed[2], seed[3],
                 seed[0], seed[1], seed[2], seed[3],

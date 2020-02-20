@@ -6,7 +6,14 @@
 
     <groupId>moe.maple</groupId>
     <artifactId>crypto</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
+    <packaging>pom</packaging>
+    <distributionManagement>
+        <repository>
+            <id>bintray-y785-moe.maple</id>
+            <url>https://api.bintray.com/maven/moe/maple/scheduler/;publish=1</url>
+        </repository>
+    </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>3.8.1</maven.compiler.version>
@@ -30,19 +37,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>
